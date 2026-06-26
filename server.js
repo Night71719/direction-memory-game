@@ -1,4 +1,5 @@
 const express = require("express");
+const fs = require("fs");
 const http = require("http");
 const path = require("path");
 const QRCode = require("qrcode");
@@ -22,7 +23,15 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 app.set("trust proxy", true);
-app.use(express.static(path.join(__dirname, "public")));
+
+const publicDir = path.join(__dirname, "public");
+const flatDir = __dirname;
+const staticDir = fs.existsSync(path.join(publicDir, "index.html")) ? publicDir : flatDir;
+
+app.use(express.static(staticDir));
+app.get("/", (req, res) => {
+  res.sendFile(path.join(staticDir, "index.html"));
+});
 
 const rooms = new Map();
 
