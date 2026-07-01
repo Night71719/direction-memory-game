@@ -1,0 +1,63 @@
+恋爱回忆网站 GitHub + Supabase 上传步骤
+
+一、先说明数据是否会保存和共享
+
+1. 只双击本地 HTML：
+   数据保存在当前浏览器，关闭后通常不会消失，但清理浏览器数据或换手机后看不到，也不能两个人共享。
+
+2. 上传 GitHub 并正确连接 Supabase：
+   两个人打开同一个网址后，会读取同一个数据库。
+   回忆、每天的名称、首页文字、装饰、特殊日期、评论和聊天都会共享并永久保存。
+   图片保存到 Supabase Storage。
+   实时小人和在线状态只在在线时显示，离线后自动消失。
+
+二、配置 Supabase
+
+1. 登录 https://supabase.com 并打开你的项目。
+2. 在左侧点击 SQL Editor。
+3. 点击 New query。
+4. 打开本文件夹中的 supabase-schema.sql，全选并复制内容。
+5. 粘贴到 SQL Editor，点击 Run。
+6. 打开 Authentication，在 Providers 或 Sign In Methods 中开启 Anonymous Sign-Ins。
+7. 打开 Project Settings -> API。
+8. 找到 Project URL 和 anon public key（有些新版页面显示 publishable key）。
+9. 用记事本打开 supabase-config.js。
+10. 将“请填写你的 Project URL”替换为 Project URL。
+11. 将“请填写你的 anon public key”替换为 anon public key。
+12. 保存文件。不要使用 service_role key。
+
+三、上传 GitHub
+
+1. 登录 https://github.com。
+2. 新建一个仓库，建议名称 love-memory-site，设置为 Public。
+3. 进入仓库首页，点击 Add file -> Upload files。
+4. 打开“love-memory-site_GitHub直接上传”文件夹。
+5. 同时选中该文件夹里的全部文件，拖入 GitHub 上传区域：
+   index.html
+   supabase-config.js
+   supabase-schema.sql
+   GitHub上传步骤.txt
+   couple-photo-1.jpg 至 couple-photo-5.jpg
+6. 等待全部文件出现在上传列表中。
+7. 在页面下方点击 Commit changes。
+
+四、开启 GitHub Pages
+
+1. 在仓库顶部点击 Settings。
+2. 左侧点击 Pages。
+3. Build and deployment 的 Source 选择 Deploy from a branch。
+4. Branch 选择 main，右侧选择 /(root)。
+5. 点击 Save。
+6. 等待约 1 到 5 分钟，刷新 Pages 页面。
+7. 页面会显示网站地址，通常为：
+   https://你的GitHub用户名.github.io/love-memory-site/
+
+五、检查共享功能
+
+1. 手机和电脑分别打开同一个 GitHub Pages 地址。
+2. 两边输入不同用户名。
+3. 在一边修改首页文字或发送大厅消息。
+4. 另一边应在很短时间内看到变化。
+5. 新增一条带图片的回忆，刷新两边页面，内容仍应存在。
+
+如果网页显示“本机体验模式”，说明 supabase-config.js 中的地址或 anon key 没有正确填写。
